@@ -43,7 +43,7 @@ def classify(classes, vocabulary, class_probablity, word_probability, document)
     product = 1.0
     product *= class_probablity[c]
     words.each do |word|
-      product = product.rationalize * word_probability[c][word].rationalize
+      product = product.rationalize * word_probability[c][word]
     end
     products[c.to_sym] = product
   end
@@ -85,13 +85,13 @@ test_record = OpenStruct.new
 accurate_prediction_count = 0
 count = 0
 false_prediction_count = 0
-File.open('../data/forumTrainingSmall.data', "r").each_line do |line|
+File.open('../data/forumTraining.data', "r").each_line do |line|
   count += 1
   data = line.split(" ")
   test_record.real_category = data[0]
   test_record.content = data.drop(0).join(' ')
   oracle = classify(classes, vocabulary, probability, word_probability, test_record.content)
-  puts "oracle: #{oracle}, real: #{test_record.real_category}"
+  #puts "oracle: #{oracle}, real: #{test_record.real_category}"
   if oracle == test_record.real_category.to_sym
     accurate_prediction_count += 1 
   else
