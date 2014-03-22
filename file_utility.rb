@@ -1,4 +1,6 @@
 require 'set'
+require 'ostruct'
+require 'debugger'
 
 module FileUtility
 
@@ -8,14 +10,14 @@ module FileUtility
     records = []
 
     File.open(path, "r").each_line do |line|
-      
-      records << line
-      words_per_line = line.split(' ').drop(1)
-      words_per_line.each do |w|
-        #unless vocabulary.include? w
-          #vocabulary << w
+      line_array = line.split(' ')
+      record = OpenStruct.new
+      record.category = line_array.first
+      record.words = line_array.drop(1)
+
+      records << record
+      record.words.each do |w|
           vocabulary.add(w)
-        #end
       end
 
       unless classes.include? line.split(' ').shift
