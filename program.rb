@@ -32,7 +32,7 @@ def classify(classes, vocabulary, class_probablity, word_probability, document)
   key = products.max_by{|k,v| v}[0]
 end
 
-classes, vocabulary, records = FileUtility.read('../data/forumTraining-stemmed.data')
+classes, vocabulary, records = FileUtility.read('data/forumTraining-stemmed.data')
 
 document = {}
 probability = {}
@@ -69,7 +69,7 @@ test_record = OpenStruct.new
 accurate_prediction_count = 0
 count = 0
 false_prediction_count = 0
-File.open('../data/forumTest-stemmed.data', "r").each_line do |line|
+File.open('data/forumTest-stemmed.data', "r").each_line do |line|
   count += 1
   data = line.split(" ")
   test_record.real_category = data[0]
