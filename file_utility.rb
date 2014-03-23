@@ -6,26 +6,22 @@ module FileUtility
 
   def FileUtility.read(path)
     vocabulary = Set.new
-    classes = []
+    classes = Set.new
     records = []
 
     File.open(path, "r").each_line do |line|
       line_array = line.split(' ')
       record = OpenStruct.new
-      record.category = line_array.first
+      record.category = line_array[0]
       record.words = line_array.drop(1)
 
       records << record
-      record.words.each do |w|
-          vocabulary.add(w)
-      end
-
-      unless classes.include? line.split(' ').shift
-        classes << line.split(' ').shift
-      end
+      
+      record.words.each { |w| vocabulary.add(w) }
+      classes.add(record.category)
     end
 
-    return classes, vocabulary.to_a, records
+    return classes.to_a, vocabulary.to_a, records
   end
 
 end
