@@ -1,6 +1,5 @@
 require 'set'
 require 'ostruct'
-require 'debugger'
 
 module FileUtility
 
